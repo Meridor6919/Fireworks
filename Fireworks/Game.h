@@ -5,17 +5,11 @@
 #include "SimpleMath.h"
 #include "PrimitiveBatch.h"
 #include "VertexTypes.h"
-#include "AnimationHeaders.h"
-#include "ObjectHeaders.h"
 #include "SpriteBatch.h"
 #include "DirectXApplication.h"
 
 class Game : public DirectXApplication
 {
-
-	std::shared_ptr<ExemplaryAnimation> my_animation;
-	std::shared_ptr<ExemplaryObject> my_object;
-
 public:
 	Game(HINSTANCE hinstance) : DirectXApplication(hinstance){}
 	bool Init();

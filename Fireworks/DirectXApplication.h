@@ -18,8 +18,6 @@
 #include <VertexTypes.h>
 #include <chrono>
 
-#include "resource.h""
-
 using Microsoft::WRL::ComPtr;
 
 class DirectXApplication {
@@ -29,8 +27,8 @@ protected:
 	HWND hwnd = 0;
 	UINT window_width = 1200;
 	UINT window_height = 800;
-	std::string title = "Application title";
-	std::string class_name = "Application_class";
+	std::string title = "Fireworks";
+	std::string class_name = "MainClass";
 
 	ComPtr<ID3D11Device> device;
 	ComPtr<ID3D11DeviceContext> device_context;
@@ -49,7 +47,6 @@ protected:
 	std::unique_ptr<DirectX::SpriteBatch> sprite_batch;
 	std::unique_ptr<DirectX::CommonStates> common_states;
 	std::unique_ptr<DirectX::BasicEffect> basic_effect;
-	std::unique_ptr<DirectX::SpriteFont> sprite_font;
 	D3D_DRIVER_TYPE driver_type;
 	D3D_FEATURE_LEVEL feature_level;
 	D3D11_VIEWPORT viewport;
@@ -63,8 +60,7 @@ protected:
 	bool InitInput();
 	bool Register();
 	int GetQualityLevel(int sample_count);
-
-	void Clear();
+	void Clear(DirectX::XMVECTORF32 color);
 public:
 	DirectXApplication(HINSTANCE instance);
 	bool Init();

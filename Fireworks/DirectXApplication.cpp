@@ -1,5 +1,4 @@
 #include "DirectXApplication.h"
-#include "resource.h"
 
 
 int DirectXApplication::GetQualityLevel(int sample_count)
@@ -126,21 +125,9 @@ LRESULT DirectXApplication::EventHandler(HWND hwnd, UINT msg, WPARAM wparam, LPA
 {
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
-void DirectXApplication::Clear()
+void DirectXApplication::Clear(DirectX::XMVECTORF32 color)
 {
-	/*
-	device_context->ClearRenderTargetView(render_target_view.Get(), DirectX::Colors::White);
-	device_context->ClearDepthStencilView(depth_stencil_view.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-	device_context->OMSetRenderTargets(1, render_target_view.GetAddressOf(), depth_stencil_view.Get());
-	device_context->RSSetViewports(1, &viewport);
-	device_context->OMSetBlendState(common_states->Opaque(), nullptr, 0xFFFFFFFF);
-	device_context->OMSetDepthStencilState(common_states->DepthNone(), 0);
-	device_context->RSSetState(rasterizer_state.Get());
-	basic_effect->SetWorld(world);
-	basic_effect->Apply(device_context.Get());
-	device_context->IASetInputLayout(input_layout.Get());
-	*/
-	device_context->ClearRenderTargetView(render_target_view.Get(), DirectX::Colors::White);
+	device_context->ClearRenderTargetView(render_target_view.Get(), color);
 	device_context->ClearDepthStencilView(depth_stencil_view.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	device_context->OMSetRenderTargets(1, render_target_view.GetAddressOf(), depth_stencil_view.Get());
 	device_context->RSSetViewports(1, &viewport);
@@ -158,7 +145,7 @@ bool DirectXApplication::InitWindow()
 		return false;
 	}
 	RECT window_rect = { 0, 0, window_width, window_height };
-	if (!AdjustWindowRect(&window_rect, WS_OVERLAPPEDWINDOW, true))
+	if (!AdjustWindowRect(&window_rect, WS_OVERLAPPEDWINDOW, false))
 	{
 		MessageBox(0, "window rect error", "Error", 0);
 		return false;
@@ -210,7 +197,6 @@ bool DirectXApplication::Register()
 	wc.hInstance = instance_handle;
 	wc.hCursor = LoadCursor(0, IDC_ARROW);
 	wc.lpszClassName = class_name.c_str();
-	wc.lpszMenuName = MAKEINTRESOURCE(DXT_MAIN);
 	if (!RegisterClassEx(&wc))
 	{
 		return false;
@@ -238,7 +224,7 @@ bool DirectXApplication::InitInput()
 
 bool DirectXApplication::InitD3D11()
 {
-	const int sample_count = 4;
+	const int sample_count = 8;
 	int quality_level = GetQualityLevel(sample_count);
 	if (quality_level < 0)
 	{
@@ -276,7 +262,7 @@ bool DirectXApplication::InitD3D11()
 
 	//Creating Depth stencil view
 	CD3D11_TEXTURE2D_DESC depth_stencil_desc(DXGI_FORMAT_D24_UNORM_S8_UINT, window_width, window_height,
-		1, 1, D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT, 0, 4, 0);
+		1, 1, D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT, 0, sample_count, 0);
 
 	ComPtr<ID3D11Texture2D> depth_stencil;
 	device->CreateTexture2D(&depth_stencil_desc, NULL, depth_stencil.ReleaseAndGetAddressOf());
@@ -310,8 +296,7 @@ bool DirectXApplication::InitD3D11()
 	basic_effect->SetVertexColorEnabled(true);
 	sprite_batch = std::make_unique<DirectX::SpriteBatch>(device_context.Get());
 	primitive_batch = std::make_unique<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>>(device_context.Get());
-	sprite_font = std::make_unique<DirectX::SpriteFont>(device.Get(), L"myfile.spritefont", false);
-
+	
 	//Creating Input layout
 	void const* shaderByteCode;
 	size_t byteCodeLength;

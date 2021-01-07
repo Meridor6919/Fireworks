@@ -7,12 +7,6 @@
     <Filter Include="Application">
       <UniqueIdentifier>{f91a6711-464a-48ab-9b15-a944e3aa5425}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Application\Objects">
-      <UniqueIdentifier>{2a5e3234-f660-475e-a1a0-911d971de32f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Application\Animations">
-      <UniqueIdentifier>{02512d37-c4c4-4d6a-addd-339784cd0597}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Application\Game Content">
       <UniqueIdentifier>{741663b3-84cb-407f-95de-3c8cbfaa2d9c}</UniqueIdentifier>
     </Filter>
@@ -33,12 +27,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Application\Game Content</Filter>
     </ClCompile>
-    <ClCompile Include="RootObject.cpp">
-      <Filter>Technical</Filter>
-    </ClCompile>
-    <ClCompile Include="ExemplaryObject.cpp">
-      <Filter>Application\Objects</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXApplication.h">
@@ -50,38 +38,11 @@
     <ClInclude Include="AnimatedSprite.h">
       <Filter>Technical</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationHeaders.h">
-      <Filter>Application\Animations</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Application\Game Content</Filter>
-    </ClInclude>
-    <ClInclude Include="RootObject.h">
-      <Filter>Technical</Filter>
-    </ClInclude>
-    <ClInclude Include="ExemplaryObject.h">
-      <Filter>Application\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectHeaders.h">
-      <Filter>Application\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="ExemplaryAnimation.h">
-      <Filter>Application\Animations</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="myfile.spritefont" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="exemplary_animation.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="resource.rc">
-      <Filter>Application</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
