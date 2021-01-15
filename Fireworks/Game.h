@@ -7,6 +7,7 @@
 #include "VertexTypes.h"
 #include "SpriteBatch.h"
 #include "DirectXApplication.h"
+#include "Primitives/PrimitiveHeaders.h"
 
 class Game : public DirectXApplication
 {
